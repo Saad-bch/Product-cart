@@ -17,13 +17,14 @@ let Delete = document.getElementById("delete");
 //Functions
 
 //getTotal
+
 function getTotal() {
     if (price.value != '') {
         let result = (+price.value + +taxes.value + +ads.value) - +discount.value;
         total.innerHTML = result;
         total.style.backgroundColor = "green";
 
-    }else {
+    } else {
         total.innerHTML = '';
         total.style.backgroundColor = "red";
     }
@@ -36,23 +37,63 @@ let dataProduct;
 
 if (localStorage.productArray != null) {
     dataProduct = JSON.parse(localStorage.productArray)
-}else {
-     dataProduct = []
+} else {
+    dataProduct = []
 }
 
 submit.onclick = function () {
     let newProduct = {
-        title:title.value,
-        price:price.value,
-        taxes:taxes.value,
-        ads:ads.value,
-        discount:discount.value,
-        total:total.innerHTML,
-        count:count.value,
-        category:category.value,
+        title: title.value,
+        price: price.value,
+        taxes: taxes.value,
+        ads: ads.value,
+        discount: discount.value,
+        total: total.innerHTML,
+        count: count.value,
+        category: category.value,
     }
-    dataProduct.push(newProduct);
-    localStorage.setItem('productArray' , JSON.stringify(dataProduct))
 
+    dataProduct.push(newProduct);
+    localStorage.setItem('productArray', JSON.stringify(dataProduct));
+    clearInputs()
+    showData()
 }
-console.log(dataProduct);
+
+//clear Inputs data
+
+function clearInputs() {
+    title.value = '';
+    price.value = '';
+    taxes.value = '';
+    ads.value = '';
+    discount.value = '';
+    total.innerHTML = '';
+    count.value = '';
+    category.value = '';
+}
+
+//Show data
+
+function showData() {
+    let tabel = '';
+
+    for (let i = 0; i < dataProduct.length; i++) {
+        tabel += `
+           <tr>
+                <td>${i}</td>
+                <td>${dataProduct[i].title}</td>
+                <td>${dataProduct[i].price}</td>
+                <td>${dataProduct[i].taxes}</td>
+                <td>${dataProduct[i].ads}</td>
+                <td><button id="update">update</button></td>
+                <td><button id="delete">delete</button></td>
+            </tr>
+        `;
+    }
+
+
+    let tbody =  document.getElementById('tbody');
+    tbody.innerHTML = tabel ;
+}
+showData()
+
