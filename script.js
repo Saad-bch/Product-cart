@@ -53,7 +53,15 @@ submit.onclick = function () {
         category: category.value,
     }
 
-    dataProduct.push(newProduct);
+    if (newProduct.count > 1) {
+        for (let i = 0; i < newProduct.count; i++) {
+            dataProduct.push(newProduct);
+        }
+    } else {
+        dataProduct.push(newProduct);
+    }
+
+    //save data
     localStorage.setItem('productArray', JSON.stringify(dataProduct));
     clearInputs()
     showData()
@@ -73,8 +81,8 @@ function clearInputs() {
 }
 
 //Show data
-
 function showData() {
+    // Reset de tabel elke keer als de functie wordt aangeroepen
     let tabel = '';
 
     for (let i = 0; i < dataProduct.length; i++) {
@@ -85,15 +93,36 @@ function showData() {
                 <td>${dataProduct[i].price}</td>
                 <td>${dataProduct[i].taxes}</td>
                 <td>${dataProduct[i].ads}</td>
-                <td><button id="update">update</button></td>
-                <td><button id="delete">delete</button></td>
+                <td><button class="update">update</button></td>
+                <td><button onclick="deleteData(${i})" class="delete">delete</button></td>
             </tr>
         `;
     }
 
+    document.getElementById('tbody').innerHTML = tabel;  // Vul de tabel met nieuwe data
 
-    let tbody =  document.getElementById('tbody');
-    tbody.innerHTML = tabel ;
+    // De Delete All knop opnieuw instellen
+    let deleteAll = document.getElementById("divDelete");
+    if (dataProduct.length > 0) {
+        deleteAll.innerHTML = `<button onclick="deletArrayData()">Delete All (${dataProduct.length}) </button>`;
+    } else {
+        deleteAll.innerHTML = '';
+    }
 }
+
 showData()
+
+//delete data
+
+function deleteData(i) {
+    dataProduct.splice(i, 1);
+    localStorage.productArray = JSON.stringify(dataProduct);
+    showData()
+}
+
+function deletArrayData() {
+    localStorage.clear();
+    dataProduct.splice(0);
+    showData()
+}
 

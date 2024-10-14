@@ -27,7 +27,7 @@ input {
     height: 30px;
     border: none;
     outline: none;
-    margin: 4px;
+    margin: 4px 0;
    border-radius: 3px;
    padding: 3px;
 }
@@ -66,6 +66,9 @@ button:hover {
 }
 .btnSearch button {
     width: 45%;
+}
+#divDelete {
+    margin: 15px 0;
 }
 table {
     width: 100%;
