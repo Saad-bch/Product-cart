@@ -1,4 +1,3 @@
-
 //ID variables
 let title = document.getElementById("title");
 let price = document.getElementById("price");
@@ -15,7 +14,7 @@ let update = document.getElementById("update");
 let Delete = document.getElementById("delete");
 
 let mood = 'create';
-let tmp ;
+let tmp;
 
 //Functions
 
@@ -66,7 +65,7 @@ submit.onclick = function () {
         }
     } else {
         dataProduct[tmp] = newProduct;
-        mood ='create';
+        mood = 'create';
         submit.innerHTML = 'Create';
         count.style.display = 'block';
     }
@@ -148,15 +147,15 @@ function updateData(i) {
     taxes.value = dataProduct[i].taxes;
     ads.value = dataProduct[i].ads;
     getTotal()
-    count.style.display ='none';
+    count.style.display = 'none';
     discount.value = dataProduct[i].discount;
     category.value = dataProduct[i].category;
     submit.innerHTML = 'Update';
     mood = 'Update';
     tmp = i;
     scroll({
-        top:0,
-        behavior : "smooth"
+        top: 0,
+        behavior: "smooth"
     })
 
 
